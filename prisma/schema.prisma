@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type PlayersCareerHighs {
+  assists  Int
+  blocks   Int
+  points   Int
+  rebounds Int
+  steals   Int
+}
+
+type PlayersPosition {
+  long  String[]
+  short String[]
+}
+
+model players {
+  id                   String             @id @default(auto()) @map("_id") @db.ObjectId
+  v                    Int                @map("__v")
+  all_star_appearances Int
+  career_highs         PlayersCareerHighs
+  championship         Int[]
+  college              String
+  date_of_birth        String
+  draft_year           Int
+  highschool           String
+  is_hall_of_famer     Boolean
+  mvp                  Int[]
+  name                 String
+  nationality          String
+  number               String[]
+  position             PlayersPosition
+  ranked_at            Int
+  retired              Boolean
+  rookie_of_the_year   Boolean
+  scoring_rank         Int
+  teams_played         String[]
+  years_played         Int
+
+  @@index([ranked_at], map: "ranked_at_1")
+}
