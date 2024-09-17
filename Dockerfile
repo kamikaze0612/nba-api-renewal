@@ -13,8 +13,13 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+EXPOSE 8080
+
 # Build the application using pnpm
 RUN pnpm run build
+
+# Generate Prisma client
+RUN pnpm dlx prisma generate
 
 # Start the application using pnpm
 CMD ["pnpm", "run", "start:prod"]
