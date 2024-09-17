@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
 
 import { PlayersService } from './players.service';
 
@@ -14,6 +14,17 @@ export class PlayersController {
     return {
       status: 200,
       body: players,
+    };
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get(':id')
+  async getPlayerById(@Param('id') id: string) {
+    const player = await this.playersService.getPlayerById(id);
+
+    return {
+      status: 200,
+      body: player,
     };
   }
 }
